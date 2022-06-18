@@ -62,9 +62,8 @@ router.get('/:user/:repo/contributors.svg', async (context) => {
       }
     })
 
-    const encoder = new TextEncoder()
-    const svg = encoder.encode(generateSvg(contributors, svgWidth, svgHeight))
-    await Deno.writeFile("./contributors.svg", svg)
+    const svg = await generateSvg(contributors, svgWidth, svgHeight) || ''
+    await Deno.writeTextFile("./contributors.svg", svg.replaceAll(/(\,)/g, ''))
     context.response.status = 200
     context.response.headers.set('Content-Type', 'image/svg+xml')
     context.response.body = await Deno.readFile("./contributors.svg")
