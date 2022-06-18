@@ -32,7 +32,6 @@ router.get('/:user/:repo', async (context) => {
 
   try {
     const response = await fetch(url)
-    const data = await response.json()
 
     context.response.status = 200
     context.response.body = {message: `visit ${user}/${repo}/contributors.svg to see contributors image. Visit https://github.com/isaiah-hamilton/github-contributors for more information.`}
@@ -64,14 +63,14 @@ router.get('/:user/:repo/contributors.svg', async (context) => {
     })
 
     const svg = await generateSvg(contributors, svgWidth, svgHeight) || ''
-    await Deno.writeTextFile("./contributors.svg", svg.replaceAll(/(\,)/g, ''), {append: true, create: true})
+    await Deno.writeTextFile("./contributors.svg", svg.replaceAll(/(\,)/g, ''))
     context.response.status = 200
     context.response.headers.set('Content-Type', 'image/svg+xml')
     context.response.body = await Deno.readFile("./contributors.svg")
   } catch (error) {
+    console.log(error)
     context.response.status = 404
     context.response.body = {error: 'user/repo not found'}
-    console.log(error)
   }
 })
 
