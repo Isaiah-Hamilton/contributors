@@ -29,8 +29,6 @@ const generateSvg = (contributor: any, svgWidth: string, svgHeight: string) => {
           newPosY = Math.floor(posY / 10)
         }
 
-        console.log(posX, newPosY === undefined ? posY : newPosY)
-
         return`
         <a xlink:href="${contributors.url}" target="_blank" id="${contributors.login}">
           <image x="${posX - 64}" y="${newPosY === undefined ? posY : newPosY}" width="${config.avatarWidth}" height="${config.avatarHeight}" xlink:href="${contributors.avatar_url}"/>
