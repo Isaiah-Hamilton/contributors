@@ -38,7 +38,12 @@ const generateSvg = (contributor: any, svgWidth: string, svgHeight: string) => {
     </svg>
     `
   }
-
 }
 
-export default generateSvg
+const exportSvg = (contributor: any, svgWidth: string, svgHeight: string) => {
+  const svg: any = generateSvg(contributor, svgWidth, svgHeight) || ''
+  Deno.writeTextFile("./contributors.svg", svg.replaceAll(/(\,)/g, ''))
+  return svg
+}
+
+export default exportSvg
