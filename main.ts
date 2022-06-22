@@ -2,7 +2,7 @@ import { Application, Router } from "https://deno.land/x/oak@v10.6.0/mod.ts"
 import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts"
 import { getQuery } from "https://deno.land/x/oak@v10.6.0/helpers.ts"
 import config from "./config.ts"
-import exportSvg from "./generateSvg.ts"
+import generateSvg from "./generateSvg.ts"
 
 const app = new Application()
 const router = new Router()
@@ -62,11 +62,9 @@ router.get('/:user/:repo/contributors.svg', async (context) => {
       }
     })
 
-    exportSvg(contributors, svgWidth, svgHeight)
-
     context.response.status = 200
     context.response.headers.set('Content-Type', 'image/svg+xml')
-    context.response.body = await Deno.readFile("./contributors.svg")
+    context.response.body = generateSvg(contributors, svgWidth, svgHeight)
   } catch (error) {
     console.log(error)
     context.response.status = 404
