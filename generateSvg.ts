@@ -1,12 +1,11 @@
 import config from "./config.ts"
 
 const generateSvg = (data: any, svgWidth: string, svgHeight: string) => {
-  const contributor = data.map((contributor: { login: string, contributions: number, html_url: string, avatar_url: string }) => {
+  const contributor = data.map((contributor: { login: string, contributions: number, html_url: string }) => {
     return {
       login: contributor.login,
       count: contributor.contributions,
       url: contributor.html_url,
-      image_url: contributor.avatar_url,
     }
   })
 
@@ -18,7 +17,7 @@ const generateSvg = (data: any, svgWidth: string, svgHeight: string) => {
 
     return `
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${svgWidth}" height="${svgHeight}">
-      ${contributor.map((contributors: { login: string, contributions: number, url: string, image_url: string }, i: number) => {
+      ${contributor.map((contributors: { login: string, contributions: number, url: string }, i: number) => {
         posX += config.imageWidth + config.padding
         posY = config.padding
 
@@ -31,7 +30,7 @@ const generateSvg = (data: any, svgWidth: string, svgHeight: string) => {
 
         return`
         <a xlink:href="${contributors.url}" target="_blank" id="${contributors.login}">
-          <image x="${PosY === undefined ? posX - (config.imageWidth + 5) : posX - config.imageWidth}" y="${PosY === undefined ? posY : PosY}" width="${config.imageWidth}" height="${config.imageHeight}" xlink:href="${contributors.image_url}"/>
+          <image x="${PosY === undefined ? posX - (config.imageWidth + 5) : posX - config.imageWidth}" y="${PosY === undefined ? posY : PosY}" width="${config.imageWidth}" height="${config.imageHeight}" xlink:href="https://github.com/${contributors.login}.png"/>
         </a>
         `
       })}
