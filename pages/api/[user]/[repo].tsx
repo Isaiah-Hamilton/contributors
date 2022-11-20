@@ -66,7 +66,7 @@ export default async function handler(req: NextRequest) {
                 height={image_size ? image_size : "100"}
                 src={contributor.avatar}
                 style={{
-                  borderRadius: radius ? radius :128,
+                  borderRadius: radius ? radius : 130,
                   margin: spacing ? spacing : '0.5rem'
                 }}
               />
