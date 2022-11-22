@@ -1,4 +1,3 @@
-import Image from "next/image"
 import { useState } from "react"
 
 type Input = {
@@ -62,7 +61,7 @@ const Home = () => {
           <Form />
         </div>
         <div className="w-1/2">
-          <Image src={"http://localhost:3000/api/supabase/supabase"} width={1200} height={600} alt={""} />
+          <img src={"http://localhost:3000/api/supabase/supabase"} width={1200} height={600} alt={""} />
           <div className="flex space-x-2 items-end">
             <div className="w-full">
               <Input id="URL" type="text" placeholder="http://localhost:3000/api/supabase/supabase" />
