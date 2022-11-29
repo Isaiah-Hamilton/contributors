@@ -1,11 +1,14 @@
 # contributors
 Image of your github contributors
 
-# Built with
+# Tech Stack
 
-- [Deno](https://deno.land)
-- [oak](https://github.com/oakserver/oak)
+- [Next.js](https://nextjs.org/) – framework
+- [Typescript](https://www.typescriptlang.org/) – language
+- [Tailwind](https://tailwindcss.com/) – CSS
+- [Satori](https://github.com/vercel/satori) - library
+- [Vercel](https://vercel.com/) – hosting
 
 # Contributors
 
-![](https://contributors.deno.dev/supabase/supabase)
+![](https://contributors-zeta.vercel.app/api/isaiah-hamilton/contributors)
