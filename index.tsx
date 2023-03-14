@@ -14,11 +14,11 @@ async function handler(req: Request) {
     const user = url.pathname.split('/')[1]
     const repo = url.pathname.split('/')[2]
     const count = url.searchParams.get('count')
+    const width = url.searchParams.get('width')
+    const height = url.searchParams.get('height')
     const radius = url.searchParams.get('radius')
     const spacing = url.searchParams.get('spacing')
     const avatar_size = url.searchParams.get('avatar_size')
-    const image_width = url.searchParams.get('image_width')
-    const image_height = url.searchParams.get('image_height')
 
     if(!user || !repo) {
         return new Response(JSON.stringify({ error: 'Please provide a github user and repo' }), {
@@ -37,8 +37,12 @@ async function handler(req: Request) {
         })
     }
 
-    const width: number | undefined = image_width ? parseInt(image_width, 10) : undefined
-    const height: number | undefined = image_height ? parseInt(image_height, 10) : undefined
+    const convertToNumber = (value: string | null) => {
+        if (value) {
+            return Number(value)
+        }
+        return null
+    }
 
     return new ImageResponse(
       (
@@ -70,8 +74,8 @@ async function handler(req: Request) {
         </div>
         ),
         {
-            width: width ? width : 1200,
-            height: height ? height : 600,
+            width: width ? convertToNumber(width) : 1200,
+            height: height ? convertToNumber(height) : 600,
             status: 200,
             headers: {
                 'content-type': 'image/png',
