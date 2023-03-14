@@ -1,5 +1,7 @@
-import React from 'https://esm.sh/react@18.2.0?deno-std=0.140.0'
-import { ImageResponse } from 'https://deno.land/x/og_edge@0.0.4/mod.ts'
+/** @jsx h */
+import { h } from "https://esm.sh/preact"
+import { serve } from "https://deno.land/std@0.140.0/http/server.ts"
+import { ImageResponse } from 'https://deno.land/x/og_edge@0.0.6/mod.ts'
 
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -7,7 +9,7 @@ const corsHeaders = {
     'Content-Type': 'application/json'
 }
 
-export default async function handler(req: Request) {
+async function handler(req: Request) {
     const url = new URL(req.url)
     const user = url.pathname.split('/')[1]
     const repo = url.pathname.split('/')[2]
@@ -25,11 +27,11 @@ export default async function handler(req: Request) {
         })
     }
 
-    const git = await fetch(`https://api.github.com/repos/${user}/${repo}/contributors${count ? `?per_page=${count}` : ''}`)
-    const contributor = await git.json()
+    const data = await fetch(`https://api.github.com/repos/${user}/${repo}/contributors${count ? `?per_page=${count}` : ''}`)
+    const response = await data.json()
 
-    if (contributor.message) {
-        return new Response(JSON.stringify({ error: contributor.message }), {
+    if (response.message) {
+        return new Response(JSON.stringify({ error: response.message }), {
             headers: { ...corsHeaders },
             status: 404,
         })
@@ -51,19 +53,19 @@ export default async function handler(req: Request) {
             fontWeight: 600,
             }}
         >
-            {contributor.map((contributor: any, i: number) => {
-            return (
-                <img
-                key={i}
-                    width={avatar_size ? avatar_size : "100"}
-                    height={avatar_size ? avatar_size : "100"}
-                    src={contributor.avatar_url}
-                    style={{
-                    borderRadius: radius ? radius : 130,
-                    margin: spacing ? spacing : '0.5rem'
-                    }}
-                />
-            )
+            {response.map((contributor: any, i: number) => {
+                return (
+                    <img
+                        key={i}
+                            width={avatar_size ? avatar_size : "100"}
+                            height={avatar_size ? avatar_size : "100"}
+                            src={contributor.avatar_url}
+                            style={{
+                                borderRadius: radius ? radius : 130,
+                                margin: spacing ? spacing : '0.5rem'
+                            }}
+                    />
+                )
             })}
         </div>
         ),
@@ -79,3 +81,5 @@ export default async function handler(req: Request) {
         }
     )
 }
+
+serve(handler)
