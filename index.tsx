@@ -65,7 +65,7 @@ async function handler(req: Request) {
                             height={avatar_size ? avatar_size : "100"}
                             src={contributor.avatar_url}
                             style={{
-                                borderRadius: radius ? radius : 130,
+                                borderRadius: radius ? radius : 50,
                                 margin: spacing ? spacing : '0.5rem'
                             }}
                     />
