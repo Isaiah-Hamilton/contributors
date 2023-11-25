@@ -40,4 +40,4 @@ or
 
 ## Contributors
 
-[![](https://contributors.deno.dev/isaiah-hamilton/contributors?height=200)](https://github.com/isaiah-hamilton/contributors/graphs/contributors)
+[![](https://contributors.deno.dev/isaiah-hamilton/contributors?height=110)](https://github.com/isaiah-hamilton/contributors/graphs/contributors)
