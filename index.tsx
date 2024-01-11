@@ -10,6 +10,8 @@ const corsHeaders = {
 }
 
 async function handler(req: Request) {
+    const startTime = Date.now(); // Record start time
+
     const url = new URL(req.url)
     const user = url.pathname.split('/')[1]
     const repo = url.pathname.split('/')[2]
@@ -20,21 +22,27 @@ async function handler(req: Request) {
     const spacing = url.searchParams.get('spacing')
     const avatar_size = url.searchParams.get('avatar_size')
 
-    if(!user || !repo) {
-        return new Response(JSON.stringify({ error: 'Please provide a github user and repo' }), {
+    if (!user || !repo) {
+        const errorResponse = new Response(JSON.stringify({ error: 'Please provide a github user and repo' }), {
             headers: { ...corsHeaders },
             status: 404,
-        })
+        });
+
+        logRequestInfo(req, startTime);
+        return errorResponse;
     }
 
     const data = await fetch(`https://api.github.com/repos/${user}/${repo}/contributors${count ? `?per_page=${count}` : ''}`)
     const response = await data.json()
 
     if (response.message) {
-        return new Response(JSON.stringify({ error: response.message }), {
+        const errorResponse = new Response(JSON.stringify({ error: response.message }), {
             headers: { ...corsHeaders },
             status: 404,
-        })
+        });
+
+        logRequestInfo(req, startTime);
+        return errorResponse;
     }
 
     const convertToNumber = (value: string | null) => {
@@ -44,23 +52,23 @@ async function handler(req: Request) {
         return null
     }
 
-    return new ImageResponse(
-      (
-        <div
-            style={{
-            height: '100%',
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            fontSize: 32,
-            fontWeight: 600,
-            }}
-        >
-            {response.map((contributor: any, i: number) => {
-                return (
-                    <img
-                        key={i}
+    const imageResponse = new ImageResponse(
+        (
+            <div
+                style={{
+                    height: '100%',
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    fontSize: 32,
+                    fontWeight: 600,
+                }}
+            >
+                {response.map((contributor: any, i: number) => {
+                    return (
+                        <img
+                            key={i}
                             width={avatar_size ? avatar_size : "100"}
                             height={avatar_size ? avatar_size : "100"}
                             src={contributor.avatar_url}
@@ -68,10 +76,10 @@ async function handler(req: Request) {
                                 borderRadius: radius ? radius : 50,
                                 margin: spacing ? spacing : '0.5rem'
                             }}
-                    />
-                )
-            })}
-        </div>
+                        />
+                    )
+                })}
+            </div>
         ),
         {
             width: width ? convertToNumber(width) : 1200,
@@ -83,7 +91,16 @@ async function handler(req: Request) {
                 'cdn-cache-control': 'max-age=31536000',
             },
         }
-    )
+    );
+
+    logRequestInfo(req, startTime);
+    return imageResponse;
 }
 
-serve(handler)
+function logRequestInfo(req: Request, startTime: number) {
+    const endTime = Date.now();
+    const elapsedTime = endTime - startTime;
+    console.log(`URL: ${req.url}, Response Time: ${elapsedTime}ms`);
+}
+
+serve(handler);
