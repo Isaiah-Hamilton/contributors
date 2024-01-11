@@ -101,7 +101,7 @@ function logRequestInfo(req: Request, startTime: number) {
     const endTime = Date.now();
     const elapsedTime = endTime - startTime;
     const path = new URL(req.url).pathname;
-    console.log(`URL Path: ${path}, Response Time: ${elapsedTime}ms`);
+    console.log(`URL: ${path}, Response Time: ${elapsedTime}ms`);
 }
 
 serve(handler);
