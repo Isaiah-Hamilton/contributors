@@ -100,7 +100,8 @@ async function handler(req: Request) {
 function logRequestInfo(req: Request, startTime: number) {
     const endTime = Date.now();
     const elapsedTime = endTime - startTime;
-    console.log(`URL: ${req.url}, Response Time: ${elapsedTime}ms`);
+    const path = new URL(req.url).pathname;
+    console.log(`URL Path: ${path}, Response Time: ${elapsedTime}ms`);
 }
 
 serve(handler);
