@@ -1,10 +1,10 @@
 # Contributors
 
-Contributors is designed to generate an image of contributors for your repository. This image can be added to your repository's README to showcase the individuals who have contributed to your project.
+This tool  generates an image to showcase the open source contributors in a repository. This image can be added to your repository's README to showcase the individuals who have contributed.
 
 ## How To Use
 
-To use this tool, add a link to [`contributors.deno.dev/<user>/<repo>`](https://contributors.deno.dev/<user>/<repo>) in your readme. Make sure to replace `<user>` and `<repo>` with your own username and repository name. See examples below.
+To use this tool, add [`contributors.deno.dev/<user>/<repo>`](https://contributors.deno.dev/<user>/<repo>) to your readme. Make sure to replace `<user>` and `<repo>` with your own username and repository name. See examples below.
 
 ```md
 [![](https://contributors.deno.dev/<user>/<repo>)](https://github.com/<user>/<repo>/graphs/contributors)
@@ -22,7 +22,7 @@ or
 
 ### Required Parameters:
 
-- `/:username/:repository`: The GitHub username and repository name separated by a slash.
+- `/<username>/<repository>`: The GitHub username and repository name separated by a slash.
 
 ### Optional Parameters:
 - `?count`: The number of contributors to include in the grid. The default value is `30`.
@@ -34,7 +34,6 @@ or
 
 ## Tech Stack
 
-- [Typescript](https://www.typescriptlang.org/)
 - [og_edge](https://deno.land/x/og_edge)
 - [Deno](https://deno.com/)
 
