@@ -14,9 +14,8 @@ func main() {
 	api := app.Group("/api")
 
 	// Define a route for the GET method on the root path '/'
-	api.Get("/", func(c fiber.Ctx) error {
-		// Send a string response to the client
-		return c.SendString("Hello, World 👋!")
+	api.Get("/:user/:repo", func(c fiber.Ctx) error {
+		return c.SendString("param: " + c.Params("user"))
 	})
 
 	// Start the server on port 3000
