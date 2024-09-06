@@ -3,6 +3,7 @@ module github.com/isaiah-hamilton/contributors/backend
 go 1.23.1
 
 require (
+	github.com/ajstarks/svgo v0.0.0-20211024235047-1546f124cd8b // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/gofiber/fiber/v3 v3.0.0-beta.3 // indirect
 	github.com/gofiber/utils/v2 v2.0.0-beta.6 // indirect
