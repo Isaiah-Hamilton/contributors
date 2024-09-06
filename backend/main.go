@@ -1,16 +1,21 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
+	"log"
+
+	"github.com/gofiber/fiber/v3"
 )
 
 func main() {
-	http.HandleFunc("/api/hello", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json")
-		fmt.Fprintf(w, `{"message": "Hello from Golang API!"}`)
+	// Initialize a new Fiber app
+	app := fiber.New()
+
+	// Define a route for the GET method on the root path '/'
+	app.Get("/", func(c fiber.Ctx) error {
+		// Send a string response to the client
+		return c.SendString("Hello, World 👋!")
 	})
 
-	fmt.Println("Server is running on port 8080")
-	http.ListenAndServe(":8080", nil)
+	// Start the server on port 3000
+	log.Fatal(app.Listen(":3000"))
 }
