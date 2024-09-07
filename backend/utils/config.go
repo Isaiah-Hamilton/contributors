@@ -18,11 +18,11 @@ type Config struct {
 
 func defaultConfig() Config {
 	return Config{
-		AvatarSize:   40,
-		Gap:          20,
+		AvatarSize:   64,
+		Gap:          10,
 		Border:       0,
 		Columns:      10,
-		UsernameSize: 12,
+		UsernameSize: 0,
 		Count:        30,
 	}
 }
