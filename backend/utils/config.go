@@ -11,8 +11,8 @@ type Config struct {
 	Gap          int
 	Border       int
 	BorderColor  string
-	Columns      int
 	UsernameSize int
+	Columns      int
 	Count        int
 }
 
@@ -22,8 +22,8 @@ func defaultConfig() Config {
 		Gap:          10,
 		Border:       0,
 		BorderColor:  "#c0c0c0",
-		Columns:      10,
 		UsernameSize: 0,
+		Columns:      10,
 		Count:        30,
 	}
 }
@@ -46,6 +46,7 @@ func GetConfig(c fiber.Ctx) Config {
 		"gap":           &config.Gap,
 		"border":        &config.Border,
 		"username_size": &config.UsernameSize,
+		"columns":       &config.Columns,
 		"count":         &config.Count,
 	}
 
