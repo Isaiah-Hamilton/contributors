@@ -26,7 +26,7 @@ func Image(buf *bytes.Buffer, contributors []utils.Contributor, config utils.Con
 		{
 			id := fmt.Sprintf("%d", i)
 			canvas.Title(contributor.Username)
-			canvas.Circle(config.AvatarSize/2, config.AvatarSize/2, config.AvatarSize/2, `stroke="#c0c0c0"`, fmt.Sprintf(`stroke-width="%s"`, config.Border), fmt.Sprintf(`fill="url(#%s)"`, id))
+			canvas.Circle(config.AvatarSize/2, config.AvatarSize/2, config.AvatarSize/2, `stroke="#c0c0c0"`, fmt.Sprintf(`stroke-width="%d"`, config.Border), fmt.Sprintf(`fill="url(#%s)"`, id))
 			canvas.Def()
 			{
 				canvas.Pattern(id, 0, 0, config.AvatarSize, config.AvatarSize, "user")
