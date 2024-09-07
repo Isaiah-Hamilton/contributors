@@ -11,16 +11,15 @@ import (
 )
 
 func API(c fiber.Ctx) error {
+	config := utils.GetConfig(c)
 
-	url := fmt.Sprintf("https://api.github.com/repos/%s/%s/contributors", c.Params("user"), c.Params("repo"))
+	url := fmt.Sprintf("https://api.github.com/repos/%s/%s/contributors?per_page=%d", c.Params("user"), c.Params("repo"), config.Count)
 
 	// Fetch contributors data
 	var contributors []utils.Contributor
 	if err := utils.GetData(url, &contributors); err != nil {
 		return c.Status(500).SendString("Failed to fetch data from GitHub: " + err.Error())
 	}
-
-	config := utils.GetConfig(c)
 
 	switch strings.ToLower(c.Params("option")) {
 	case "image":
