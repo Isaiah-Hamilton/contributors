@@ -17,7 +17,6 @@ func Image(buf *bytes.Buffer, contributors []utils.Contributor, config utils.Con
 
 	canvas.Start(width, height, fmt.Sprintf(`viewBox="0 0 %d %d"`, int(width), int(height)))
 
-	// Example: Draw circles for each contributor
 	for i, contributor := range contributors {
 		x := (i % config.Columns) * (config.AvatarSize + config.Gap)
 		y := (i / config.Columns) * (config.AvatarSize + config.Gap)
@@ -40,6 +39,5 @@ func Image(buf *bytes.Buffer, contributors []utils.Contributor, config utils.Con
 		canvas.End()
 	}
 
-	// End the SVG document
 	canvas.End()
 }

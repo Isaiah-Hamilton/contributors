@@ -37,10 +37,8 @@ func image_api(c fiber.Ctx, contributors []utils.Contributor, config utils.Confi
 
 	render.Image(&buf, contributors, config)
 
-	// Set the Content-Type to image/svg+xml
 	c.Set("Content-Type", "image/svg+xml")
 
-	// Send the generated SVG as the response
 	return c.Send(buf.Bytes())
 }
 
