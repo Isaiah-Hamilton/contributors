@@ -8,11 +8,16 @@ import (
 )
 
 func main() {
-	app := fiber.New()
-
-	api := app.Group("/api")
-
-	api.Get("/:user/:repo/:option", handlers.API)
+	app := Setup()
 
 	log.Fatal(app.Listen(":3000"))
+}
+
+// Setup Setup a fiber app with all of its routes
+func Setup() *fiber.App {
+	app := fiber.New()
+
+	app.Get("/api/:user/:repo/:option", handlers.API)
+
+	return app
 }
