@@ -6,6 +6,7 @@ import (
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/middleware/cache"
 	"github.com/gofiber/fiber/v3/middleware/compress"
+	"github.com/gofiber/fiber/v3/middleware/cors"
 	"github.com/isaiah-hamilton/contributors/backend/handlers"
 )
 
@@ -19,7 +20,7 @@ func main() {
 func Setup() *fiber.App {
 	app := fiber.New()
 
-	app.Use(cache.New(), compress.New())
+	app.Use(cache.New(), compress.New(), cors.New())
 
 	app.Get("/api/:user/:repo/:option", handlers.API)
 
