@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func GetData(url string, data interface{}) (int, error) {
+func getContributors(url string, data interface{}) (int, error) {
 	response, err := http.Get(url)
 
 	// if error return status code 500 and error message

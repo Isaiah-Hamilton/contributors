@@ -17,8 +17,8 @@ func API(c fiber.Ctx) error {
 
 	// Fetch contributors data
 	var contributors []utils.Contributor
-	if err := utils.GetData(url, &contributors); err != nil {
-		return c.Status(500).SendString(err.Error())
+	if statusCode, err := getContributors(url, &contributors); err != nil {
+		return c.Status(statusCode).SendString(err.Error())
 	}
 
 	switch strings.ToLower(c.Params("option")) {
