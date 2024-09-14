@@ -111,7 +111,7 @@
 	// Function to fetch data based on repo and type
 	async function fetchData() {
 		try {
-			let response = await fetch(`http://127.0.0.1:3000/api/${repo}/${type}`);
+			let response = await fetch(`https://contributors.up.railway.app/api/${repo}/${type}`);
 			if (response.ok) {
 				image = await response.text();
 			} else {
