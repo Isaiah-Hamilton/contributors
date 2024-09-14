@@ -92,7 +92,7 @@
 	console.log(copy.url);
 
 	const generateURL = (repo: string, type: string, params: Params): string => {
-		let baseURL = `http://127.0.0.1:3000/api/${repo}/${type}`;
+		let baseURL = `https://contributors.up.railway.app/api/${repo}/${type}`;
 
 		const queryParams = Object.entries(params)
 			.filter(([key]) => key !== 'visible')
